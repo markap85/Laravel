@@ -1,0 +1,359 @@
+// ===================================================================
+// NETMATTERS ADMIN PANEL - MAIN STYLESHEET
+// ===================================================================
+
+// Variables (must be imported before Bootstrap)
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// ===================================================================
+// CUSTOM NETMATTERS STYLES
+// ===================================================================
+
+// Custom button styles matching homepage
+.btn {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 400;
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Netmatters service color buttons
+.btn-it {
+  @include button-variant($it, $it);
+}
+
+.btn-bespoke {
+  @include button-variant($bespoke, $bespoke);
+}
+
+.btn-marketing {
+  @include button-variant($marketing, $marketing);
+}
+
+.btn-telecoms {
+  @include button-variant($telecoms, $telecoms);
+}
+
+.btn-design {
+  @include button-variant($design, $design);
+}
+
+.btn-cyber {
+  @include button-variant($cyber, $cyber);
+}
+
+.btn-developer {
+  @include button-variant($developer, $developer);
+}
+
+// Custom card styles
+.card {
+  box-shadow: $card-box-shadow;
+  border: 1px solid $card-border-color;
+  
+  .card-header {
+    background-color: $primary-dark;
+    color: $white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.875rem;
+    padding: 0.75rem 1.25rem;
+  }
+}
+
+// Dashboard cards with service colors
+.card-it {
+  border-top: 3px solid $it;
+  
+  .card-header {
+    background-color: $it;
+  }
+}
+
+.card-bespoke {
+  border-top: 3px solid $bespoke;
+  
+  .card-header {
+    background-color: $bespoke;
+  }
+}
+
+.card-marketing {
+  border-top: 3px solid $marketing;
+  
+  .card-header {
+    background-color: $marketing;
+  }
+}
+
+.card-telecoms {
+  border-top: 3px solid $telecoms;
+  
+  .card-header {
+    background-color: $telecoms;
+  }
+}
+
+.card-design {
+  border-top: 3px solid $design;
+  
+  .card-header {
+    background-color: $design;
+  }
+}
+
+.card-cyber {
+  border-top: 3px solid $cyber;
+  
+  .card-header {
+    background-color: $cyber;
+  }
+}
+
+// Navbar customization
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 1.25rem;
+}
+
+.nav-link {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+// Badge styles
+.badge {
+  letter-spacing: 0.3px;
+  font-weight: 500;
+}
+
+// Table styles
+.table {
+  font-size: 0.875rem;
+  
+  thead th {
+    background-color: $primary-dark;
+    color: $white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.75rem;
+    border: none;
+  }
+  
+  tbody tr {
+    transition: background-color 0.15s ease-in-out;
+    
+    &:hover {
+      background-color: rgba($it, 0.05);
+    }
+  }
+}
+
+// Form styles
+.form-label {
+  font-weight: 500;
+  color: $primary-dark;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.form-control {
+  &:focus {
+    border-color: $it;
+    box-shadow: 0 0 0 0.2rem rgba($it, 0.25);
+  }
+}
+
+.form-select {
+  &:focus {
+    border-color: $it;
+    box-shadow: 0 0 0 0.2rem rgba($it, 0.25);
+  }
+}
+
+// Alert customization
+.alert {
+  border: none;
+  border-left: 4px solid;
+  
+  &.alert-success {
+    background-color: lighten($marketing, 45%);
+    border-left-color: $marketing;
+    color: darken($marketing, 30%);
+  }
+  
+  &.alert-danger {
+    background-color: lighten($telecoms, 45%);
+    border-left-color: $telecoms;
+    color: darken($telecoms, 20%);
+  }
+  
+  &.alert-warning {
+    background-color: lighten($yellow, 40%);
+    border-left-color: $yellow;
+    color: darken($yellow, 30%);
+  }
+  
+  &.alert-info {
+    background-color: lighten($it, 45%);
+    border-left-color: $it;
+    color: darken($it, 20%);
+  }
+}
+
+// Page header
+.page-header {
+  background: linear-gradient(135deg, $primary-dark 0%, $grey-mid 100%);
+  color: $white;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  h1 {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+}
+
+// Circular images (for company logos and profile pictures)
+.img-circular {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid $grey;
+}
+
+// Company logo sizes
+.company-logo {
+  width: 50px;
+  height: 50px;
+  
+  &.company-logo-lg {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+// Employee profile picture sizes
+.employee-avatar {
+  width: 40px;
+  height: 40px;
+  
+  &.employee-avatar-lg {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+// Pagination
+.pagination {
+  .page-link {
+    color: $it;
+    border-color: #dee2e6;
+    
+    &:hover {
+      background-color: lighten($it, 45%);
+      border-color: $it;
+      color: $it;
+    }
+  }
+  
+  .page-item.active .page-link {
+    background-color: $it;
+    border-color: $it;
+  }
+}
+
+// Dashboard stats cards
+.stats-card {
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: $white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .stats-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .stats-label {
+    color: #6c757d;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+}
+
+// Custom dropdown
+.dropdown-menu {
+  border-radius: 3px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  
+  .dropdown-item {
+    transition: all 0.15s ease-in-out;
+    
+    &:hover {
+      background-color: lighten($it, 45%);
+      color: $it;
+    }
+  }
+}
+
+// Action buttons group
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  
+  .btn {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.75rem;
+  }
+}
+
+// Icon-only buttons (larger and more visible)
+.btn-sm i.bi {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.btn i.bi {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.shadow-dark {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
