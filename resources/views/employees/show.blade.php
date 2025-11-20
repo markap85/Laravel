@@ -2,14 +2,31 @@
 
 @section('content')
 <div class="container">
+    <x-breadcrumb :items="[
+        ['title' => 'Employees', 'url' => route('employees.index')],
+        ['title' => $employee->first_name . ' ' . $employee->last_name, 'url' => route('employees.show', $employee)]
+    ]" />
+    
+    <div class="print-only mb-3">
+        <h2>{{ $employee->first_name }} {{ $employee->last_name }}</h2>
+        <p class="text-muted">Employee Details Report - Generated {{ now()->format('F d, Y h:i A') }}</p>
+    </div>
+    
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <span>Employee Details</span>
-                    <div>
-                        <a href="{{ route('employees.edit', $employee) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="{{ route('employees.index') }}" class="btn btn-secondary btn-sm">Back to List</a>
+                    <span><i class="bi bi-person"></i> Employee Details</span>
+                    <div class="no-print">
+                        <button onclick="window.print()" class="btn btn-secondary btn-sm me-1">
+                            <i class="bi bi-printer"></i> Print
+                        </button>
+                        <a href="{{ route('employees.edit', $employee) }}" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil"></i> Edit
+                        </a>
+                        <a href="{{ route('employees.index') }}" class="btn btn-secondary btn-sm">
+                            <i class="bi bi-arrow-left"></i> Back to List
+                        </a>
                     </div>
                 </div>
 

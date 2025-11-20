@@ -2,14 +2,31 @@
 
 @section('content')
 <div class="container">
+    <x-breadcrumb :items="[
+        ['title' => 'Companies', 'url' => route('companies.index')],
+        ['title' => $company->name, 'url' => route('companies.show', $company)]
+    ]" />
+    
+    <div class="print-only mb-3">
+        <h2>{{ $company->name }}</h2>
+        <p class="text-muted">Company Details Report - Generated {{ now()->format('F d, Y h:i A') }}</p>
+    </div>
+    
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <span>Company Details</span>
-                    <div>
-                        <a href="{{ route('companies.edit', $company) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <a href="{{ route('companies.index') }}" class="btn btn-secondary btn-sm">Back to List</a>
+                    <span><i class="bi bi-building"></i> Company Details</span>
+                    <div class="no-print">
+                        <button onclick="window.print()" class="btn btn-secondary btn-sm me-1">
+                            <i class="bi bi-printer"></i> Print
+                        </button>
+                        <a href="{{ route('companies.edit', $company) }}" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil"></i> Edit
+                        </a>
+                        <a href="{{ route('companies.index') }}" class="btn btn-secondary btn-sm">
+                            <i class="bi bi-arrow-left"></i> Back to List
+                        </a>
                     </div>
                 </div>
 
@@ -99,10 +116,13 @@
 
                     <hr>
 
-                    <form action="{{ route('companies.destroy', $company) }}" method="POST" class="d-inline">
+                    <form action="{{ route('companies.destroy', $company) }}" method="POST" class="d-inline no-print" id="delete-company-form">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this company?')">Delete Company</button>
+                        <button type="button" class="btn btn-danger" 
+                                onclick="if(confirm('Are you sure you want to delete {{ addslashes($company->name) }}? This will also remove all associated employees. This action cannot be undone.')) { document.getElementById('delete-company-form').submit(); }">
+                            <i class="bi bi-trash"></i> Delete Company
+                        </button>
                     </form>
                 </div>
             </div>

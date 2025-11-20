@@ -6,16 +6,91 @@ use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $companies = Company::latest()->paginate(10);
+        $query = Company::query();
+        
+        // Search functionality
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('website', 'like', "%{$search}%");
+            });
+        }
+        
+        // Sorting functionality
+        $sortField = $request->get('sort', 'created_at');
+        $sortDirection = $request->get('direction', 'desc');
+        
+        $allowedSorts = ['name', 'email', 'website', 'created_at'];
+        if (in_array($sortField, $allowedSorts)) {
+            $query->orderBy($sortField, $sortDirection);
+        } else {
+            $query->latest();
+        }
+        
+        $companies = $query->paginate(10)->appends($request->query());
+        
         return view('companies.index', compact('companies'));
+    }
+    
+    /**
+     * Export companies to CSV
+     */
+    public function export(Request $request)
+    {
+        $query = Company::query();
+        
+        // Apply same search filter as index
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('website', 'like', "%{$search}%");
+            });
+        }
+        
+        $companies = $query->get();
+        
+        $filename = 'companies_' . date('Y-m-d_His') . '.csv';
+        
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+        ];
+        
+        $callback = function() use ($companies) {
+            $file = fopen('php://output', 'w');
+            
+            // CSV Headers
+            fputcsv($file, ['ID', 'Name', 'Email', 'Website', 'Admin Access', 'Created At']);
+            
+            // CSV Data
+            foreach ($companies as $company) {
+                fputcsv($file, [
+                    $company->id,
+                    $company->name,
+                    $company->email ?? '',
+                    $company->website ?? '',
+                    $company->allow_admin ? 'Yes' : 'No',
+                    $company->created_at->format('Y-m-d H:i:s'),
+                ]);
+            }
+            
+            fclose($file);
+        };
+        
+        return response()->stream($callback, 200, $headers);
     }
 
     /**

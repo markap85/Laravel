@@ -2,10 +2,26 @@
 
 @section('content')
 <div class="container">
+    <x-breadcrumb :items="[
+        ['title' => 'Companies', 'url' => route('companies.index')],
+        ['title' => $company->name, 'url' => route('companies.show', $company)],
+        ['title' => 'Edit', 'url' => route('companies.edit', $company)]
+    ]" />
+    
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Edit Company</div>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span><i class="bi bi-pencil-square"></i> Edit Company</span>
+                    <div>
+                        <a href="{{ route('companies.show', $company) }}" class="btn btn-info btn-sm me-1">
+                            <i class="bi bi-eye"></i> View
+                        </a>
+                        <a href="{{ route('companies.index') }}" class="btn btn-secondary btn-sm">
+                            <i class="bi bi-arrow-left"></i> Back to List
+                        </a>
+                    </div>
+                </div>
 
                 <div class="card-body">
                     <form action="{{ route('companies.update', $company) }}" method="POST" enctype="multipart/form-data">

@@ -18,8 +18,93 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    
+    <style>
+        /* Print Styles */
+        @media print {
+            .navbar, .btn, .pagination, .no-print {
+                display: none !important;
+            }
+            
+            .card {
+                border: 1px solid #dee2e6 !important;
+                box-shadow: none !important;
+            }
+            
+            body {
+                background: white !important;
+            }
+            
+            .print-only {
+                display: block !important;
+            }
+        }
+        
+        .print-only {
+            display: none;
+        }
+        
+        /* Sortable table headers */
+        th[data-sort] {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transition: background-color 0.2s ease;
+        }
+        
+        th[data-sort]:hover {
+            background-color: #d3d3d3 !important;
+        }
+        
+        th[data-sort]::after {
+            content: '⇅';
+            margin-left: 5px;
+            opacity: 0.3;
+        }
+        
+        th[data-sort].sort-asc::after {
+            content: '↑';
+            opacity: 1;
+        }
+        
+        th[data-sort].sort-desc::after {
+            content: '↓';
+            opacity: 1;
+        }
+        
+        /* Empty state styling */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        
+        .empty-state-icon {
+            font-size: 4rem;
+            color: #dee2e6;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state-title {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-state-description {
+            color: #adb5bd;
+            margin-bottom: 1.5rem;
+        }
+    </style>
 </head>
 <body>
+    <!-- Hidden elements for flash messages -->
+    @if(session('success'))
+        <div data-success-message="{{ session('success') }}" style="display: none;"></div>
+    @endif
+    
+    @if(session('error'))
+        <div data-error-message="{{ session('error') }}" style="display: none;"></div>
+    @endif
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -91,26 +176,11 @@
         </nav>
 
         <main class="py-4">
-            @if(session('success'))
-                <div class="container">
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            @endif
-
-            @if(session('error'))
-                <div class="container">
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{ session('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-            @endif
-
             @yield('content')
         </main>
     </div>
+    
+    <!-- Toast Container -->
+    <div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index: 11"></div>
 </body>
 </html>

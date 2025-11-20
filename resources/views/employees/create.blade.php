@@ -2,10 +2,20 @@
 
 @section('content')
 <div class="container">
+    <x-breadcrumb :items="[
+        ['title' => 'Employees', 'url' => route('employees.index')],
+        ['title' => 'Create New Employee', 'url' => route('employees.create')]
+    ]" />
+    
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Create New Employee</div>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span><i class="bi bi-person-add"></i> Create New Employee</span>
+                    <a href="{{ route('employees.index') }}" class="btn btn-secondary btn-sm">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                </div>
 
                 <div class="card-body">
                     <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">

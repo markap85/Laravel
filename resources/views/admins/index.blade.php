@@ -2,11 +2,15 @@
 
 @section('content')
 <div class="container">
+    <x-breadcrumb :items="[
+        ['title' => 'Admin Users', 'url' => route('admins.index')]
+    ]" />
+    
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <span>Admin Users</span>
+                    <span><i class="bi bi-shield-check"></i> Admin Users</span>
                 </div>
 
                 <div class="card-body">

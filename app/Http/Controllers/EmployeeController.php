@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
@@ -15,10 +16,111 @@ class EmployeeController extends Controller
      * 
      * Shows all employees with pagination and eager loads company and user relationships.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::with(['company', 'user'])->latest()->paginate(10);
-        return view('employees.index', compact('employees'));
+        $query = Employee::with(['company', 'user']);
+        
+        // Search functionality
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('first_name', 'like', "%{$search}%")
+                  ->orWhere('last_name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhereHas('company', function($q) use ($search) {
+                      $q->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+        
+        // Filter by company
+        if ($request->has('company_id') && $request->company_id != '') {
+            $query->where('company_id', $request->company_id);
+        }
+        
+        // Sorting functionality
+        $sortField = $request->get('sort', 'created_at');
+        $sortDirection = $request->get('direction', 'desc');
+        
+        $allowedSorts = ['first_name', 'last_name', 'email', 'phone', 'created_at', 'company_id'];
+        if (in_array($sortField, $allowedSorts)) {
+            if ($sortField === 'company_id') {
+                // Sort by company name instead of company_id
+                $query->leftJoin('companies', 'employees.company_id', '=', 'companies.id')
+                      ->orderBy('companies.name', $sortDirection)
+                      ->select('employees.*');
+            } else {
+                $query->orderBy($sortField, $sortDirection);
+            }
+        } else {
+            $query->latest();
+        }
+        
+        $employees = $query->paginate(10)->appends($request->query());
+        $companies = Company::orderBy('name')->get();
+        
+        return view('employees.index', compact('employees', 'companies'));
+    }
+    
+    /**
+     * Export employees to CSV
+     */
+    public function export(Request $request)
+    {
+        $query = Employee::with(['company', 'user']);
+        
+        // Apply same filters as index
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('first_name', 'like', "%{$search}%")
+                  ->orWhere('last_name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhereHas('company', function($q) use ($search) {
+                      $q->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+        
+        if ($request->has('company_id') && $request->company_id != '') {
+            $query->where('company_id', $request->company_id);
+        }
+        
+        $employees = $query->get();
+        
+        $filename = 'employees_' . date('Y-m-d_His') . '.csv';
+        
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"{$filename}\"",
+        ];
+        
+        $callback = function() use ($employees) {
+            $file = fopen('php://output', 'w');
+            
+            // CSV Headers
+            fputcsv($file, ['ID', 'First Name', 'Last Name', 'Company', 'Email', 'Phone', 'Is Admin', 'Created At']);
+            
+            // CSV Data
+            foreach ($employees as $employee) {
+                fputcsv($file, [
+                    $employee->id,
+                    $employee->first_name,
+                    $employee->last_name,
+                    $employee->company ? $employee->company->name : '',
+                    $employee->email ?? '',
+                    $employee->phone ?? '',
+                    $employee->user_id ? 'Yes' : 'No',
+                    $employee->created_at->format('Y-m-d H:i:s'),
+                ]);
+            }
+            
+            fclose($file);
+        };
+        
+        return response()->stream($callback, 200, $headers);
     }
 
     /**
