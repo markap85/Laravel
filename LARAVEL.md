@@ -10,6 +10,8 @@
 - [x] Create admin user seeder (admin@admin.com / password)
 - [x] Create and register IsAdmin middleware
 
+https://laravel.mark-peters.netmatters-scs.co.uk /login
+
 ## 🌐 Access Admin Panel
 
 ### Laravel Built-in Development Server
