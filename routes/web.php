@@ -11,6 +11,18 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+// Serve storage files (workaround for disabled symlinks on shared hosting)
+Route::get('/storage/{folder}/{filename}', function ($folder, $filename) {
+    $path = $folder . '/' . $filename;
+    $file = storage_path('app/public/' . $path);
+    
+    if (!file_exists($file)) {
+        abort(404);
+    }
+    
+    return response()->file($file);
+})->where('folder', '[a-zA-Z0-9_-]+')->where('filename', '[a-zA-Z0-9_.-]+');
+
 Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
