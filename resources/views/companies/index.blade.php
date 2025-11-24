@@ -61,7 +61,7 @@
                                             Website
                                         </th>
                                         <th>Admin Access</th>
-                                        <th width="200px" class="no-print">Actions</th>
+                                        <th class="actions-column no-print">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>

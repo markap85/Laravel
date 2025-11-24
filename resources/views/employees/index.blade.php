@@ -80,7 +80,7 @@
                                         <th data-sort="phone" class="{{ request('sort') == 'phone' ? 'sort-' . request('direction', 'asc') : '' }}">
                                             Phone
                                         </th>
-                                        <th width="200px" class="no-print">Actions</th>
+                                        <th class="actions-column no-print">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>

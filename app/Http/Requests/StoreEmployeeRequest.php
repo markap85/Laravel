@@ -26,7 +26,7 @@ class StoreEmployeeRequest extends FormRequest
             'last_name' => 'required|string|max:255',
             'company_id' => 'nullable|exists:companies,id',
             'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'nullable|string|regex:/^[0-9\s\+\-\(\)]+$/|min:10|max:20',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=100,min_height=100',
         ];
     }
