@@ -8,7 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AccountController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Auth::routes(['register' => false]);
