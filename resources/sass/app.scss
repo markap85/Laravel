@@ -283,11 +283,27 @@
       border-color: $it;
       color: $it;
     }
+    
+    // Hide SVG icons in pagination
+    svg {
+      display: none;
+    }
   }
   
   .page-item.active .page-link {
     background-color: $it;
     border-color: $it;
+    color: $white;
+  }
+  
+  // Hide the extra large arrow navigation links
+  .page-item:first-child:not(.active),
+  .page-item:last-child:not(.active) {
+    .page-link {
+      &:empty {
+        display: none;
+      }
+    }
   }
 }
 
