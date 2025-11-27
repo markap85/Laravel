@@ -21,7 +21,7 @@
                         <button onclick="window.print()" class="btn btn-secondary btn-sm me-1">
                             <i class="bi bi-printer"></i> Print
                         </button>
-                        <a href="{{ route('employees.edit', $employee) }}" class="btn btn-warning btn-sm">
+                        <a href="{{ route('employees.edit', $employee) }}" class="btn btn-primary btn-sm">
                             <i class="bi bi-pencil"></i> Edit
                         </a>
                         <a href="{{ route('employees.index') }}" class="btn btn-secondary btn-sm">

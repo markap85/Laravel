@@ -21,7 +21,7 @@
                         <button onclick="window.print()" class="btn btn-secondary btn-sm me-1">
                             <i class="bi bi-printer"></i> Print
                         </button>
-                        <a href="{{ route('companies.edit', $company) }}" class="btn btn-warning btn-sm">
+                        <a href="{{ route('companies.edit', $company) }}" class="btn btn-primary btn-sm">
                             <i class="bi bi-pencil"></i> Edit
                         </a>
                         <a href="{{ route('companies.index') }}" class="btn btn-secondary btn-sm">
@@ -90,7 +90,7 @@
                                 <form action="{{ route('companies.toggleAdmin', $company) }}" method="POST" class="d-inline">
                                     @csrf
                                     @if($company->allow_admin)
-                                        <button type="submit" class="btn btn-warning btn-sm" 
+                                        <button type="submit" class="btn btn-secondary btn-sm" 
                                                 onclick="return confirm('Disable admin access for {{ $company->name }}? All admin employees will be demoted.')">
                                             Disable Admin Access
                                         </button>

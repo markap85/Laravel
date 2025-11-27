@@ -127,10 +127,10 @@
                                             <td>{{ $employee->phone ?? 'N/A' }}</td>
                                             <td class="no-print">
                                                 <div class="d-flex gap-1 flex-wrap">
-                                                    <a href="{{ route('employees.show', $employee) }}" class="btn btn-info btn-sm" title="View Employee">
+                                                    <a href="{{ route('employees.show', $employee) }}" class="btn btn-primary btn-sm" title="View Employee">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
-                                                    <a href="{{ route('employees.edit', $employee) }}" class="btn btn-warning btn-sm" title="Edit Employee">
+                                                    <a href="{{ route('employees.edit', $employee) }}" class="btn btn-secondary btn-sm" title="Edit Employee">
                                                         <i class="bi bi-pencil-square"></i>
                                                     </a>
                                                     <form action="{{ route('employees.destroy', $employee) }}" method="POST" class="d-inline" id="delete-form-{{ $employee->id }}">

@@ -95,10 +95,10 @@
                                             </td>
                                             <td class="no-print">
                                                 <div class="d-flex gap-1 flex-wrap">
-                                                    <a href="{{ route('companies.show', $company) }}" class="btn btn-info btn-sm" title="View">
+                                                    <a href="{{ route('companies.show', $company) }}" class="btn btn-primary btn-sm" title="View">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
-                                                    <a href="{{ route('companies.edit', $company) }}" class="btn btn-warning btn-sm" title="Edit">
+                                                    <a href="{{ route('companies.edit', $company) }}" class="btn btn-secondary btn-sm" title="Edit">
                                                         <i class="bi bi-pencil-square"></i>
                                                     </a>
                                                     

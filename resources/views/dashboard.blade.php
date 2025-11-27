@@ -12,12 +12,12 @@
                 <div class="card-body">
                     <!-- Statistics Cards -->
                     <div class="row mb-4">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3 mb-md-0">
                             <div class="card bg-primary text-white shadow-dark">
                                 <div class="card-body text-center">
                                     <h2 class="display-4 text-white">{{ $totalCompanies }}</h2>
                                     <p class="mb-3">Total Companies</p>
-                                    <a href="{{ route('companies.create') }}" class="btn btn-light btn-sm">
+                                    <a href="{{ route('companies.create') }}" class="btn btn-light btn-sm d-inline-flex align-items-center gap-1">
                                         <i class="bi bi-plus-circle"></i> Add Company
                                     </a>
                                 </div>
@@ -28,7 +28,7 @@
                                 <div class="card-body text-center">
                                     <h2 class="display-4 text-white">{{ $totalEmployees }}</h2>
                                     <p class="mb-3">Total Employees</p>
-                                    <a href="{{ route('employees.create') }}" class="btn btn-light btn-sm">
+                                    <a href="{{ route('employees.create') }}" class="btn btn-light btn-sm d-inline-flex align-items-center gap-1">
                                         <i class="bi bi-plus-circle"></i> Add Employee
                                     </a>
                                 </div>
@@ -39,7 +39,7 @@
                     <!-- Recent Lists -->
                     <div class="row">
                         <!-- Recent Companies -->
-                        <div class="col-md-6">
+                        <div class="col-md-6 mb-3 mb-md-0">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <strong>Recent Companies</strong>

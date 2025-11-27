@@ -1,7 +1,3 @@
-
-
-## 🌐 Access Admin Panel
-
 ### Laravel Built-in Development Server
 php artisan serve
 Ctrl + C to Close Server

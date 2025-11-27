@@ -21,6 +21,9 @@
   letter-spacing: 0.5px;
   font-weight: 400;
   transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
   
   &:hover {
     transform: translateY(-1px);
@@ -29,6 +32,75 @@
   
   &:active {
     transform: translateY(0);
+  }
+  
+  i {
+    line-height: 1;
+  }
+}
+
+// Ensure Bootstrap button colors have proper text/icon colors
+.btn-primary {
+  color: $white !important;
+  
+  i {
+    color: $white !important;
+  }
+}
+
+.btn-secondary {
+  color: $white !important;
+  
+  i {
+    color: $white !important;
+  }
+}
+
+.btn-success {
+  color: $white !important;
+  
+  i {
+    color: $white !important;
+  }
+}
+
+.btn-danger {
+  color: $white !important;
+  
+  i {
+    color: $white !important;
+  }
+}
+
+.btn-warning {
+  color: $dark !important;
+  
+  i {
+    color: $dark !important;
+  }
+}
+
+.btn-info {
+  color: $white !important;
+  
+  i {
+    color: $white !important;
+  }
+}
+
+.btn-light {
+  color: $dark !important;
+  
+  i {
+    color: $dark !important;
+  }
+}
+
+.btn-dark {
+  color: $white !important;
+  
+  i {
+    color: $white !important;
   }
 }
 
