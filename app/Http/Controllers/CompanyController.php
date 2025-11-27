@@ -170,11 +170,17 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      * 
-     * Deletes the company and its associated logo file.
-     * Note: Associated employees are NOT deleted; their company_id is set to null.
+     * Prevents deletion if company has employees assigned.
+     * Deletes the company and its associated logo file only if no employees are assigned.
      */
     public function destroy(Company $company)
     {
+        // Check if company has employees
+        if ($company->employees()->count() > 0) {
+            return redirect()->route('companies.index')
+                ->with('error', 'Cannot delete company "' . $company->name . '" because it has ' . $company->employees()->count() . ' employee(s) assigned. Please reassign or delete the employees first.');
+        }
+        
         // Delete logo file from storage if it exists
         if ($company->logo) {
             Storage::disk('public')->delete($company->logo);

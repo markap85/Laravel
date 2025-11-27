@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="mb-0">Welcome, {{ Auth::user()->name }}!</h4>
+                    <h4 class="mb-0 text-white">Welcome, {{ Auth::user()->name }}!</h4>
                 </div>
 
                 <div class="card-body">
@@ -43,7 +43,7 @@
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <strong>Recent Companies</strong>
-                                    <a href="{{ route('companies.index') }}" class="btn btn-sm btn-outline-primary">View All</a>
+                                    <a href="{{ route('companies.index') }}" class="btn btn-sm btn-light">View All</a>
                                 </div>
                                 <div class="card-body p-0">
                                     @if($recentCompanies->count() > 0)
@@ -89,7 +89,7 @@
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <strong>Recent Employees</strong>
-                                    <a href="{{ route('employees.index') }}" class="btn btn-sm btn-outline-success">View All</a>
+                                    <a href="{{ route('employees.index') }}" class="btn btn-sm btn-light">View All</a>
                                 </div>
                                 <div class="card-body p-0">
                                     @if($recentEmployees->count() > 0)

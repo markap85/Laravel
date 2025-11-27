@@ -13,10 +13,10 @@
                     <span><i class="bi bi-people"></i> Employees</span>
                     <div class="d-flex gap-2">
                         <a href="{{ route('employees.export', request()->query()) }}" class="btn btn-success btn-sm no-print">
-                            <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
+                            <i class="bi bi-file-earmark-spreadsheet"></i> <span class="d-none d-sm-inline">Export </span>CSV
                         </a>
                         <a href="{{ route('employees.create') }}" class="btn btn-primary btn-sm no-print">
-                            <i class="bi bi-plus-circle"></i> Add New Employee
+                            <i class="bi bi-plus-circle"></i> <span class="d-none d-sm-inline">Add New</span><span class="d-sm-none">Add New</span>
                         </a>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <!-- Search and Filter Bar -->
                     <div class="row mb-3 no-print">
-                        <div class="col-md-8">
+                        <div class="col-md-8 mb-2 mb-md-0">
                             <form method="GET" action="{{ route('employees.index') }}" class="d-flex gap-2">
                                 <div class="flex-grow-1">
                                     <input type="text" 
@@ -66,10 +66,10 @@
                                     <tr>
                                         <th>Photo</th>
                                         <th data-sort="first_name" class="{{ request('sort') == 'first_name' ? 'sort-' . request('direction', 'asc') : '' }}">
-                                            First Name
+                                            Name
                                         </th>
                                         <th data-sort="last_name" class="{{ request('sort') == 'last_name' ? 'sort-' . request('direction', 'asc') : '' }}">
-                                            Last Name
+                                            Surname
                                         </th>
                                         <th data-sort="company_id" class="{{ request('sort') == 'company_id' ? 'sort-' . request('direction', 'asc') : '' }}">
                                             Company
@@ -149,9 +149,9 @@
                             </table>
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center no-print">
+                        <div class="d-flex justify-content-between align-items-center no-print mt-3">
                             <div class="text-muted">
-                                Showing {{ $employees->firstItem() }} to {{ $employees->lastItem() }} of {{ $employees->total() }} employees
+                                <span class="d-none d-sm-inline">Showing </span>{{ $employees->firstItem() }} to {{ $employees->lastItem() }} of {{ $employees->total() }}<span class="d-none d-sm-inline"> employees</span>
                             </div>
                             <div>
                                 {{ $employees->links() }}

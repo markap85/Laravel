@@ -13,10 +13,10 @@
                     <span><i class="bi bi-building"></i> Companies</span>
                     <div class="d-flex gap-2">
                         <a href="{{ route('companies.export', request()->query()) }}" class="btn btn-success btn-sm no-print">
-                            <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
+                            <i class="bi bi-file-earmark-spreadsheet"></i> <span class="d-none d-sm-inline">Export </span>CSV
                         </a>
                         <a href="{{ route('companies.create') }}" class="btn btn-primary btn-sm no-print">
-                            <i class="bi bi-plus-circle"></i> Add New Company
+                            <i class="bi bi-plus-circle"></i> <span class="d-none d-sm-inline">Add New</span><span class="d-sm-none">Add New</span>
                         </a>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-danger btn-sm" 
                                                                 title="Delete"
-                                                                onclick="if(confirm('Are you sure you want to delete {{ addslashes($company->name) }}? This action cannot be undone.')) { document.getElementById('delete-form-{{ $company->id }}').submit(); }">
+                                                                onclick="if(confirm('{{ $company->employees()->count() > 0 ? addslashes($company->name) . ' has ' . $company->employees()->count() . ' employee(s) and cannot be deleted. Please remove Employees and try again.' : 'Are you sure you want to delete ' . addslashes($company->name) . '? This action cannot be undone.' }}')) { @if($company->employees()->count() == 0) document.getElementById('delete-form-{{ $company->id }}').submit(); @endif }">
                                                             <i class="bi bi-trash"></i>
                                                         </button>
                                                     </form>
@@ -134,9 +134,9 @@
                             </table>
                         </div>
 
-                        <div class="d-flex justify-content-between align-items-center no-print">
+                        <div class="d-flex justify-content-between align-items-center no-print mt-3">
                             <div class="text-muted">
-                                Showing {{ $companies->firstItem() }} to {{ $companies->lastItem() }} of {{ $companies->total() }} companies
+                                <span class="d-none d-sm-inline">Showing </span>{{ $companies->firstItem() }} to {{ $companies->lastItem() }} of {{ $companies->total() }}<span class="d-none d-sm-inline"> companies</span>
                             </div>
                             <div>
                                 {{ $companies->links() }}
